@@ -1,5 +1,3 @@
-local HitboxScale = 1.2
-
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
@@ -16,7 +14,7 @@ local function ChangeHitbox(Target : Model) : Part
 	local Hitbox = RootAttachment:FindFirstChild("Hitbox")
 	if not Hitbox then return end
 	
-	Hitbox.Size *= HitboxScale
+	Hitbox.Size *= (getgenv().HitboxScale or 1.2)
 	return RootAttachment
 end
 
