@@ -5,19 +5,17 @@ local CharacterAddedEvents = {}
 local ChildAdded = {}
 
 local function ChangeHitbox(Target : Model) : Part
-	task.spawn(function()
-		local HumanoidRootPart = Target:WaitForChild("HumanoidRootPart", 1)
-		if not HumanoidRootPart then return end
+	local HumanoidRootPart = Target:FindFirstChild("HumanoidRootPart")
+	if not HumanoidRootPart then return end
 
-		local RootAttachment = HumanoidRootPart:WaitForChild("RootAttachment", 1)
-		if not RootAttachment then return end
+	local RootAttachment = HumanoidRootPart:FindFirstChild("RootAttachment")
+	if not RootAttachment then return end
 
-		local Hitbox = RootAttachment:WaitForChild("Hitbox", 1)
-		if not Hitbox then return end
+	local Hitbox = RootAttachment:FindFirstChild("Hitbox")
+	if not Hitbox then return end
 
-		Hitbox.Size *= (getgenv().HitboxScale or 1.2)
-		return RootAttachment
-	end)
+	Hitbox.Size *= (getgenv().HitboxScale or 1.2)
+	return RootAttachment
 end
 
 local function Setup(nigga : Player)
@@ -29,7 +27,9 @@ local function Setup(nigga : Player)
 		end
 	end)
 
-	CharacterAddedEvents[nigga.Name] = nigga.CharacterAdded:Connect(ChangeHitbox)
+	CharacterAddedEvents[nigga.Name] = nigga.CharacterAdded:Connect(function(Character)
+		ChangeHitbox(Character)
+	end)
 end
 
 for _, nigga in Players:GetPlayers() do
@@ -55,3 +55,5 @@ Players.PlayerRemoving:Connect(function(nigga)
 		ChildAdded[nigga.Name] = nil
 	end
 end)
+
+warn("Hitbox expander activated")
