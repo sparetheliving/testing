@@ -5,13 +5,13 @@ local CharacterAddedEvents = {}
 local ChildAdded = {}
 
 local function ChangeHitbox(Target : Model) : Part
-	local HumanoidRootPart = Target:FindFirstChild("HumanoidRootPart")
+	local HumanoidRootPart = Target:WaitForChild("HumanoidRootPart", 1)
 	if not HumanoidRootPart then return end
 
-	local RootAttachment = HumanoidRootPart:FindFirstChild("RootAttachment")
+	local RootAttachment = HumanoidRootPart:WaitForChild("RootAttachment", 1)
 	if not RootAttachment then return end
 
-	local Hitbox = RootAttachment:FindFirstChild("Hitbox")
+	local Hitbox = RootAttachment:WaitForChild("Hitbox", 1)
 	if not Hitbox then return end
 
 	Hitbox.Size *= (getgenv().HitboxScale or 1.2)
@@ -21,12 +21,18 @@ end
 local function Setup(nigga : Player)
 	local RootAttachment = ChangeHitbox(nigga.Character)
 	if not RootAttachment then return end
+	if ChildAdded[nigga.Name] then
+		ChildAdded[nigga.Name]:Disconnect()
+	end
 	ChildAdded[nigga.Name] = RootAttachment.ChildAdded:Connect(function(Part)
 		if Part.Name == "Hitbox" then
 			ChangeHitbox(Part)
 		end
 	end)
-
+	
+	if CharacterAddedEvents[nigga.Name] then
+		CharacterAddedEvents[nigga.Name]:Disconnect()
+	end
 	CharacterAddedEvents[nigga.Name] = nigga.CharacterAdded:Connect(function(Character)
 		ChangeHitbox(Character)
 	end)
@@ -46,17 +52,6 @@ Players.PlayerRemoving:Connect(function(nigga)
 	if ChildAdded[nigga.Name] then
 		ChildAdded[nigga.Name]:Disconnect()
 		ChildAdded[nigga.Name] = nil
-	end
-end)
-
-task.spawn(function()
-	while task.wait(1) do
-		for _, nigga in Players:GetPlayers() do
-			if nigga == Player then continue end
-			if nigga.Character then
-				ChangeHitbox(nigga.Character)
-			end
-		end
 	end
 end)
 
