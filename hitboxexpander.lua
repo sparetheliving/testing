@@ -15,10 +15,12 @@ local function ChangeHitbox(Target : Model) : Part
 	return RootAttachment
 end
 
-for _, nigga in Players:GetPlayers() do
-	if nigga == Player then continue end
-	if nigga.Character then
-		ChangeHitbox(nigga.Character)
+while task.wait(1) do
+	for _, nigga in Players:GetPlayers() do
+		if nigga == Player then continue end
+		if nigga.Character then
+			ChangeHitbox(nigga.Character)
+		end
 	end
 end
 
