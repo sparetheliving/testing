@@ -32,13 +32,6 @@ local function Setup(nigga : Player)
 	end)
 end
 
-for _, nigga in Players:GetPlayers() do
-	if nigga == Player then continue end
-	if nigga.Character then
-		Setup(nigga)
-	end
-end
-
 Players.PlayerAdded:Connect(function(nigga)
 	nigga.CharacterAdded:Wait()
 	task.wait(.1)
@@ -53,6 +46,17 @@ Players.PlayerRemoving:Connect(function(nigga)
 	if ChildAdded[nigga.Name] then
 		ChildAdded[nigga.Name]:Disconnect()
 		ChildAdded[nigga.Name] = nil
+	end
+end)
+
+task.spawn(function()
+	while task.wait(1) do
+		for _, nigga in Players:GetPlayers() do
+			if nigga == Player then continue end
+			if nigga.Character then
+				Setup(nigga)
+			end
+		end
 	end
 end)
 
