@@ -54,7 +54,7 @@ task.spawn(function()
 		for _, nigga in Players:GetPlayers() do
 			if nigga == Player then continue end
 			if nigga.Character then
-				Setup(nigga)
+				ChangeHitbox(nigga)
 			end
 		end
 	end
