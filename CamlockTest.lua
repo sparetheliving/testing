@@ -1,6 +1,8 @@
 local Version = "Beta v0.3"
 if _G.Version ~= Version then
 	warn("Wrong version, newest is: " .. Version)
+else
+	return
 end
 
 local Players = game:GetService("Players")
