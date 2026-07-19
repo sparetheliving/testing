@@ -5,6 +5,8 @@ else
 	return
 end
 
+warn("Running camlock script. Version: " .. Version)
+
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
