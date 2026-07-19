@@ -6,7 +6,7 @@ local function Toggle(Boolean : boolean?)
     end
     
     if Enabled then
-        local Player = game:GetService("Players"):FindFirstChild(Person)
+        local Player = game:GetService("Players"):FindFirstChild(_G.Person)
         if Player then
             if Player.Character then
                 local Humanoid = Player.Character:FindFirstChildWhichIsA("Humanoid")
@@ -39,10 +39,10 @@ end
 event = game:GetService("UserInputService").InputBegan:Connect(function(Input, Processed)
     if Processed then return end
 
-    if Input.KeyCode == Enum.KeyCode[Keybind] then
+    if Input.KeyCode == Enum.KeyCode[_G.Keybind] then
         Enabled = not Enabled
         Toggle()
-    elseif Input.KeyCode == Enum.KeyCode[Panic] then
+    elseif Input.KeyCode == Enum.KeyCode[_G.Panic] then
         event:Disconnect()
         Toggle(false)
     end
