@@ -1,4 +1,4 @@
-local Version = "Alpha v2.1.3"
+local Version = "Alpha v2.1.4"
 if _G.Version ~= Version then
 	warn("Wrong version, newest is: " .. Version)
 	return
@@ -261,6 +261,8 @@ local function Panic()
 	for _, event in events do
 		event:Disconnect()
 	end
+	
+	warn("Unloaded test script.")
 end
 
 local function AimbotMain()
@@ -304,6 +306,8 @@ events = {
 
 		if Enum.KeyCode[_G.CamlockKeybind] and Input.KeyCode == Enum.KeyCode[_G.CamlockKeybind] then
 			Toggle()
+		elseif Enum.KeyCode[_G.TriggerbotActivationKey] and Input.KeyCode == Enum.KeyCode[_G.TriggerbotActivationKey] then
+			TriggerbotEnabled = not TriggerbotEnabled
 		elseif Enum.KeyCode[_G.PanicKeybind] and Input.KeyCode == Enum.KeyCode[_G.PanicKeybind] then
 			Panic()
 		end
