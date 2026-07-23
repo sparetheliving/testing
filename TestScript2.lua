@@ -1,10 +1,10 @@
-local Version = "Alpha v2.1.2"
+local Version = "Alpha v2.1.3"
 if _G.Version ~= Version then
 	warn("Wrong version, newest is: " .. Version)
 	return
 end
 
-warn("Running camlock script. Version: " .. Version)
+warn("Running test script. Version: " .. Version)
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -101,7 +101,7 @@ local function CrewCheck(target : Model) : boolean
 	local CrewInstance1 = UsePath(CrewPath, target.Name)
 	local CrewInstance2 = UsePath(CrewPath, Player.Name)
 	if not CrewInstance1 or not CrewInstance2 then warn("Crew check passed due to no instance found", target.Name); return true end
-	if CrewInstance1.Value == nil or CrewInstance2.Value == nil then warn("Crew check passed due to incorrecnt instance", target.Name); return true end
+	if CrewInstance1.Value == nil or CrewInstance2.Value == nil then warn("Crew check passed due to incorrect instance", target.Name); return true end
 
 	if CrewInstance1.Value ~= CrewInstance2.Value then
 		return true
@@ -269,7 +269,7 @@ local function AimbotMain()
 	if not Target or not _G.Sticky then Target = FindNearest() end
 
 	if Target then
-		if not WallCheck(Target) then Toggle(false); return end
+		if not WallCheck(Target) then return end
 		if not KOCheck(Target) then Toggle(false); return end
 		if not KOCheck(Player.Character) then Toggle(false); return end
 		if _G.NearestPart and #_G.Parts > 1 then _G.Part = GetNearestPart(Target) end
