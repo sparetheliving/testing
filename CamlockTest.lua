@@ -1,4 +1,4 @@
-local Version = "Alpha v0.4"
+local Version = "Alpha v0.5"
 if _G.Version ~= Version then
 	warn("Wrong version, newest is: " .. Version)
 	return
@@ -284,6 +284,7 @@ events = {
 		if Target then
 			if not WallCheck(Target) then Toggle(false); return end
 			if not KOCheck(Target) then Toggle(false); return end
+			if not KOCheck(Player.Character) then Toggle(false); return end
 			if _G.NearestPart and #_G.Parts > 1 then _G.Part = GetNearestPart(Target) end
 			
 			UpdateCamera()
