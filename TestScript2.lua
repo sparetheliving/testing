@@ -1,6 +1,6 @@
-local Version = "Alpha v2.1.4"
+local Version = "Alpha v2.1.5"
 if _G.Version ~= Version then
-	warn("Wrong version, newest is: " .. Version)
+	warn("Incorrect version.")
 	return
 end
 
