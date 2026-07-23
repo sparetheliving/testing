@@ -310,7 +310,7 @@ events = {
 	end),
 	
 	game:GetService("UserInputService").InputEnded:Connect(function(Input, Processed)
-		if Input.KeyCode == Enum.KeyCode[_G.Keybind] and _G.Mode == "Hold" then
+		if Input.KeyCode == Enum.KeyCode[_G.CamlockKeybind] and _G.Mode == "Hold" then
 			Toggle(false)
 		end
 	end),
